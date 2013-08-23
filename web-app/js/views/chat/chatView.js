@@ -51,8 +51,9 @@ define(
                     }
                 });
 
-                $("#changeName", this.$el).on("click", function(){
-                    self.author = $("#tbChatInput", self.$el).val();
+                $("#btnChangeName", this.$el).on("click", function(){
+                    $("#tbChangeName", self.$el).animate({width: 'toggle'});
+                    self.author = $("#tbChangeName", self.$el).val();
                 });
             },
             appendMessage: function(message){
