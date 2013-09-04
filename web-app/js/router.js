@@ -11,7 +11,8 @@ define(
             appRoutes: {
                 "": "home",
 				"profile/:personid" : "profile",
-                "chat": "chat"
+                "chat": "chat",
+                "article/:articleid": "article"
             },
             start: function() {
                 Backbone.history.start();

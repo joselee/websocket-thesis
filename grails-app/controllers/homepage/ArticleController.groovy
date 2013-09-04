@@ -10,14 +10,28 @@ class ArticleController {
     def index() { }
 
     def articles = {
-        File jsonFile = grailsApplication.parentContext.getResource("feeds/articles.json").file
+        File jsonFile = grailsApplication.parentContext.getResource("feeds/articles2.json").file
         JsonSlurper jsonSlurper = new JsonSlurper()
-        def articles = jsonSlurper.parseText(jsonFile.text)
-        articles.each {
+        def feed = jsonSlurper.parseText(jsonFile.text)
+        def articleCollection = []
+        feed.each { article ->
+            def articleModel = [:]
+
+            articleModel.title = article.title
+            articleModel.id = article.id
+
             int imageId = new Random().nextInt(10) + 1
-            String imageURL = g.resource(dir: "images", file: "${imageId}.gif", absolute: true)
-            it.imageURL = imageURL
+            articleModel.imageURL = g.resource(dir: "images", file: "${imageId}.gif", absolute: true)
+
+            articleModel.body = []
+            article.each{ articleProperty ->
+                if (articleProperty.key.contains("paragraph")){
+                    articleModel.body.push("<p>${articleProperty.value}</p>")
+                }
+            }
+
+            articleCollection.push(articleModel)
         }
-        render articles as JSON
+        render articleCollection as JSON
     }
 }

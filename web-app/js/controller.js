@@ -16,6 +16,9 @@ define(
 				},
                 chat: function(){
                     Vent.trigger("show:chat");
+                },
+                article: function(articleId){
+                    Vent.trigger("show:article", articleId);
                 }
             });
         _.extend(controller, Backbone.Events);

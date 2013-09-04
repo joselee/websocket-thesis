@@ -21,13 +21,13 @@ define(
                 this.$el.page();
                 this.pagination = this.$el.data("page");
                 this.pagination.onpagechange = this.updateURL;
-                this.scrollToProfile(this.options.profileId);
+                this.scrollToArticle(this.options.articleId);
             },
             updateURL: function(){
                 var currentModel = personsCollection.at(this.currentPage);
                 Router.navigate("#profile/" + currentModel.get("id"));
             },
-            scrollToProfile: function(profileId){
+            scrollToArticle: function(profileId){
                 var index = personsCollection.getPersonIndex(profileId);
                 this.pagination.scrollToPage(index, {instant: true});
             }

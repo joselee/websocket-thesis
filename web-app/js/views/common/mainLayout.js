@@ -8,6 +8,7 @@ define(
         "views/header/headerView",
         "views/personlist/personsCollectionView",
         "views/profile/profileCollectionView",
+        "views/article/articleCollectionView",
         "views/chat/chatView",
 		"vent"
     ],
@@ -17,6 +18,7 @@ define(
 		HeaderView,
 		PersonsCollectionView,
         ProfileCollectionView,
+        ArticleCollectionView,
         ChatView,
 		Vent
 		) {
@@ -44,6 +46,10 @@ define(
 			},
             showChat: function(){
                 this.mainContentRegion.show(new ChatView);
+            },
+            showArticleCarousel: function(articleId){
+                var articleCollectionView = new ArticleCollectionView({articleId:articleId});
+                this.mainContentRegion.show(articleCollectionView);
             }
         });
 
@@ -51,6 +57,7 @@ define(
 		mainLayout.bindTo(Vent, "show:home", mainLayout.showHome);
 		mainLayout.bindTo(Vent, "show:profile", mainLayout.showProfileCarousel);
 		mainLayout.bindTo(Vent, "show:chat", mainLayout.showChat);
+		mainLayout.bindTo(Vent, "show:article", mainLayout.showArticleCarousel);
 
         return mainLayout;
     }
