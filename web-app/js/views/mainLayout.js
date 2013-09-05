@@ -44,7 +44,7 @@ define(
 			showHome: function(){
 				this.mainContentRegion.show(new HomeView);
 			},
-            showPersonList: function(){
+            showPlayerList: function(){
                 this.mainContentRegion.show(new PersonsCollectionView);
             },
 			showProfileCarousel: function(profileId){
@@ -66,7 +66,7 @@ define(
 
         var mainLayout = new MainLayout();
 		mainLayout.bindTo(Vent, "show:home", mainLayout.showHome);
-		mainLayout.bindTo(Vent, "show:personList", mainLayout.showPersonList);
+		mainLayout.bindTo(Vent, "show:playerList", mainLayout.showPlayerList);
 		mainLayout.bindTo(Vent, "show:profile", mainLayout.showProfileCarousel);
 		mainLayout.bindTo(Vent, "show:chat", mainLayout.showChat);
 		mainLayout.bindTo(Vent, "show:articleList", mainLayout.showArticleList);

@@ -10,6 +10,7 @@ define(
             controller: Controller,
             appRoutes: {
                 "": "home",
+				"playerList" : "playerList",
 				"profile/:personid" : "profile",
                 "chat": "chat",
                 "articleList": "articleList",
