@@ -26,7 +26,7 @@ class ArticleController {
             articleModel.body = []
             article.each{ articleProperty ->
                 if (articleProperty.key.contains("paragraph")){
-                    articleModel.body.push("<p>${articleProperty.value}</p>")
+                    articleModel.body.push("${articleProperty.value}")
                 }
             }
 

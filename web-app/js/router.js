@@ -12,6 +12,7 @@ define(
                 "": "home",
 				"profile/:personid" : "profile",
                 "chat": "chat",
+                "articleList/": "articleList",
                 "article/:articleid": "article"
             },
             start: function() {

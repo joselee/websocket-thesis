@@ -17,6 +17,9 @@ define(
                 chat: function(){
                     Vent.trigger("show:chat");
                 },
+                articleList: function(){
+                    Vent.trigger("show:articleList");
+                },
                 article: function(articleId){
                     Vent.trigger("show:article", articleId);
                 }

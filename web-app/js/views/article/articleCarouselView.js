@@ -1,15 +1,15 @@
 define(
     [
         "backbone.marionette",
-        "views/article/articleItemView",
+        "views/article/articlePageItemView",
         "collections/articleCollection",
         "router"
     ],
-    function ArticleCollectionView(Marionette, ArticleItemView, articleCollection, Router){
+    function ArticleCarouselView(Marionette, ArticlePageItemView, articleCollection, Router){
 
-        var ArticleCollectionView = Marionette.CollectionView.extend({
-            className: "articleCollectionView",
-            itemView: ArticleItemView,
+        var ArticleCarouselView = Marionette.CollectionView.extend({
+            className: "articleCarouselView",
+            itemView: ArticlePageItemView,
             collection: articleCollection,
             initialize: function(){
                 this.collection.on("sync", this.enablePagination, this);
@@ -33,6 +33,6 @@ define(
             }
         });
 
-        return ArticleCollectionView;
+        return ArticleCarouselView;
     }
 );
