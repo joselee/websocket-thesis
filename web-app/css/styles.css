@@ -164,7 +164,22 @@
 }
 /* Chat sytles end */
 
+/* Article list styles */
+.articleListItemView {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-bottom: solid 1px darkgray;
+}
+/* Article list styles end*/
+
 /* Article page styles */
+.articlePageItemView {
+    box-sizing: border-box;
+    padding: 0 3px;
+}
+
 .article-image {
     float: right;
     clear: right;
