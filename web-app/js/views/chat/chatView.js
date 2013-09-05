@@ -35,7 +35,6 @@ define(
                 this.request.onMessage = function (response) {
                     var message = $.parseJSON(response.responseBody);
                     self.appendMessage(message);
-                    window.alert(message);
                 };
                 this.request.onError = function(response) {
                     console.info("errored.");
