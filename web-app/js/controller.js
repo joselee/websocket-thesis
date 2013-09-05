@@ -11,6 +11,9 @@ define(
                 home: function() {
                     Vent.trigger("show:home");
                 },
+                personList: function(){
+                    Vent.trigger("show:personList");
+                },
                 profile: function(profileId) {
                     Vent.trigger("show:profile", Number(profileId));
 				},

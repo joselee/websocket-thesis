@@ -6,6 +6,7 @@ define(
         "backbone.marionette",
         "hbs!templates/mainLayoutTemplate",
         "views/header/headerView",
+        "views/home/homeView",
         "views/personlist/personsCollectionView",
         "views/profile/profileCollectionView",
         "views/article/articleListCollectionView",
@@ -17,6 +18,7 @@ define(
 		Marionette,
 		MainLayoutTemplate,
 		HeaderView,
+		HomeView,
 		PersonsCollectionView,
         ProfileCollectionView,
         ArticleListCollectionView,
@@ -40,8 +42,11 @@ define(
                 this.headerRegion.show(new HeaderView);
             },
 			showHome: function(){
-				this.mainContentRegion.show(new PersonsCollectionView);
+				this.mainContentRegion.show(new HomeView);
 			},
+            showPersonList: function(){
+                this.mainContentRegion.show(new PersonsCollectionView);
+            },
 			showProfileCarousel: function(profileId){
                 var profileCollectionView = new ProfileCollectionView({profileId:profileId});
                 this.mainContentRegion.show(profileCollectionView);
@@ -61,6 +66,7 @@ define(
 
         var mainLayout = new MainLayout();
 		mainLayout.bindTo(Vent, "show:home", mainLayout.showHome);
+		mainLayout.bindTo(Vent, "show:personList", mainLayout.showPersonList);
 		mainLayout.bindTo(Vent, "show:profile", mainLayout.showProfileCarousel);
 		mainLayout.bindTo(Vent, "show:chat", mainLayout.showChat);
 		mainLayout.bindTo(Vent, "show:articleList", mainLayout.showArticleList);

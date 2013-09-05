@@ -2,7 +2,7 @@ define(
     [
         "backbone.marionette",
 		"router",
-        "views/common/mainLayout"
+        "views/mainLayout"
     ],
     function Application(Marionette, Router, mainLayout) {
 
