@@ -29,4 +29,10 @@ $(window).load(function(){
     };
 
     var subscription = socket.subscribe(request);
+
+
+    $("#button").click(function(){
+        var data = JSON.stringify({ author: "commander", message: "THIS IS MY COMMAND" });
+        subscription.push(data);
+    });
 });

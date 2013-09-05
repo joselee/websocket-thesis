@@ -23,7 +23,7 @@ define(
         ProfileCollectionView,
         ArticleListCollectionView,
         ArticleCarouselView,
-        ChatView,
+        chatView,
 		Vent
 		) {
 		"use strict";
@@ -52,7 +52,7 @@ define(
                 this.mainContentRegion.show(profileCollectionView);
 			},
             showChat: function(){
-                this.mainContentRegion.show(new ChatView);
+                this.mainContentRegion.show(chatView);
             },
             showArticleList: function(){
                 var articleListCollectionView = new ArticleListCollectionView();

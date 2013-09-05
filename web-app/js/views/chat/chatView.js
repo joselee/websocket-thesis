@@ -12,7 +12,7 @@ define(
             subscription: null,
             request: null,
             author: "guest",
-            onShow: function(){
+            initialize: function(){
                 var self = this;
                 this.socket = $.atmosphere;
 
@@ -35,6 +35,7 @@ define(
                 this.request.onMessage = function (response) {
                     var message = $.parseJSON(response.responseBody);
                     self.appendMessage(message);
+                    window.alert(message);
                 };
                 this.request.onError = function(response) {
                     console.info("errored.");
@@ -65,10 +66,11 @@ define(
                 content.scrollTop(content[0].scrollHeight);
             },
             onClose: function(){
-                this.socket.unsubscribe();
+//                this.socket.unsubscribe();
             }
         });
 
-        return ChatView;
+        var chatView = new ChatView();
+        return chatView;
     }
 );

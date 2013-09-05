@@ -9,5 +9,6 @@
 </head>
 <body>
     <h1>Match editor</h1>
+    <button id="button">COMMAND</button>
 </body>
 </html>
