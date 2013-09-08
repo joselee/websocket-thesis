@@ -1,5 +1,5 @@
 <script type="text/template" id="matchViewTemplate">
-    <p>Match ID: {{id}}</p>
+    <p>Match ID: {{matchId}}</p>
     <p>Start time: <span class="startTime">{{moment(startTime).format("D MMM YYYY, HH:mm:ss")}}</span></p>
     <p>End time: <span class="endTime">--:--</span></p>
     <div class="teamboxContainer"></div>

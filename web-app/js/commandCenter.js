@@ -26,7 +26,7 @@ $(window).load(function(){
                 },
                 render: function(){
                     this.$el.html(this.template(this.model));
-                    this.$el.attr("id", this.model.id);
+                    this.$el.attr("id", this.model.matchId);
                     _.each(this.model.teams, function(team){
                         this.renderTeams(team);
                     }, this);
@@ -87,7 +87,7 @@ $(window).load(function(){
                     $(".btEndMatch", this.$el).click(function(e){
                         var data = JSON.stringify({
                             commandType: "endMatch",
-                            id: self.model.id,
+                            matchId: self.model.matchId,
                             startTime: self.model.time,
                             endTime: new Date().getTime()
                         });
@@ -105,7 +105,7 @@ $(window).load(function(){
             $(".points", teambox).html(message.points);
         }
         else {
-            var parentMatchItem = $("#" + message.id);
+            var parentMatchItem = $("#" + message.matchId);
             $("button", parentMatchItem).remove();
             $(".endTime", parentMatchItem).html(moment(new Date()).format("D MMM YYYY, HH:mm:ss"));
             parentMatchItem.hide().appendTo("#finishedMatches").slideDown(500);
@@ -132,12 +132,22 @@ $(window).load(function(){
 
         var data = JSON.stringify({
             commandType: "createMatch",
+            matchId: GenerateUUID(),
             startTime: new Date().getTime(),
             teams: [
-                {name: generateName(), points:0},
-                {name: generateName(), points:0}
+                {name: generateName(), teamId: GenerateUUID(), points:0},
+                {name: generateName(), teamId: GenerateUUID(), points:0}
             ]
         });
         subscription.push(data);
     });
 });
+
+
+function GenerateUUID(){
+    function S4() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    }
+    var guid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+    return guid;
+}
