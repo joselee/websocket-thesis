@@ -14,7 +14,8 @@ define(
 				"profile/:personid" : "profile",
                 "chat": "chat",
                 "articleList": "articleList",
-                "article/:articleid": "article"
+                "article/:articleid": "article",
+                "matchList": "matchList"
             },
             start: function() {
                 Backbone.history.start();

@@ -12,6 +12,7 @@ define(
         "views/article/articleListCollectionView",
         "views/article/articleCarouselView",
         "views/chat/chatView",
+        "views/match/matchListCollectionView",
 		"vent"
     ],
     function MainLayout(
@@ -24,6 +25,7 @@ define(
         ArticleListCollectionView,
         ArticleCarouselView,
         chatView,
+        matchListCollectionView,
 		Vent
 		) {
 		"use strict";
@@ -61,6 +63,9 @@ define(
             showArticleCarousel: function(articleId){
                 var articleCarouselView = new ArticleCarouselView({articleId:articleId});
                 this.mainContentRegion.show(articleCarouselView);
+            },
+            showMatchList: function(){
+                this.mainContentRegion.show(matchListCollectionView);
             }
         });
 
@@ -71,6 +76,7 @@ define(
 		mainLayout.bindTo(Vent, "show:chat", mainLayout.showChat);
 		mainLayout.bindTo(Vent, "show:articleList", mainLayout.showArticleList);
 		mainLayout.bindTo(Vent, "show:article", mainLayout.showArticleCarousel);
+		mainLayout.bindTo(Vent, "show:matchList", mainLayout.showMatchList);
 
         return mainLayout;
     }

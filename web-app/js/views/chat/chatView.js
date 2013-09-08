@@ -2,9 +2,10 @@ define(
     [
         "backbone.marionette",
         "hbs!templates/chatViewTemplate",
-        "views/chat/messageItemView"
+        "views/chat/messageItemView",
+        "pnotify"
     ],
-    function ChatView(Marionette, ChatViewTemplate, MessageItemView){
+    function ChatView(Marionette, ChatViewTemplate, MessageItemView, pnotify){
         var ChatView = Marionette.ItemView.extend({
             className: "ChatView",
             template: ChatViewTemplate,
@@ -34,7 +35,20 @@ define(
                 };
                 this.request.onMessage = function (response) {
                     var message = $.parseJSON(response.responseBody);
-                    self.appendMessage(message);
+                    if(Backbone.history.fragment !== "chat"){
+                        $.pnotify({
+                            title: message.text,
+                            text: false,
+                            history: false,
+                            icon: false,
+                            closer_hover: false,
+                            delay: 3000
+                        });
+                    }
+                    else {
+                        self.appendMessage(message);
+                    }
+
                 };
                 this.request.onError = function(response) {
                     console.info("errored.");
@@ -59,13 +73,12 @@ define(
             appendMessage: function(message){
                 var content = $("#chatContent", this.$el);
 
-                var messageModel = new Backbone.Model(message);
-                var messageView = new MessageItemView({model: messageModel});
-                content.append(messageView.el);
-                content.scrollTop(content[0].scrollHeight);
-            },
-            onClose: function(){
-//                this.socket.unsubscribe();
+                if(content.length !== 0){
+                    var messageModel = new Backbone.Model(message);
+                    var messageView = new MessageItemView({model: messageModel});
+                    content.append(messageView.el);
+                    content.scrollTop(content[0].scrollHeight);
+                }
             }
         });
 

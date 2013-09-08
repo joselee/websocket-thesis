@@ -25,6 +25,9 @@ define(
                 },
                 article: function(articleId){
                     Vent.trigger("show:article", articleId);
+                },
+                matchList: function(){
+                    Vent.trigger("show:matchList");
                 }
             });
         _.extend(controller, Backbone.Events);

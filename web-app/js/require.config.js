@@ -15,7 +15,8 @@ requirejs.config({
 		"juissi"						: "libs/juissi.swipe",
 		"vent"							: "vent",
         "atmosphere"                    : "libs/jquery.atmosphere",
-        "moment"                        : "libs/moment.min"
+        "moment"                        : "libs/moment.min",
+        "pnotify"                       : "libs/jquery.pnotify.min"
     },
     map: {
         hbs: {
@@ -52,6 +53,10 @@ requirejs.config({
         },
         moment: {
             exports: "moment"
+        },
+        pnotify: {
+            deps: ["jquery"],
+            exports: "pnotify"
         }
     },
     deps: ["backbone.marionette.handlebars", "juissi", "atmosphere", "moment"]
