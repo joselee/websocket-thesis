@@ -11,7 +11,7 @@ define(
             initialize: function(){
                 this.$el.append(this.template());
 
-                var formattedTime = moment().format("D MMM YYYY, HH:MM");
+                var formattedTime = moment().format("D MMM YYYY, HH:mm");
 
                 $(".messageAuthor", this.$el).append(this.model.get("author"));
                 $(".messageTime", this.$el).append(formattedTime);

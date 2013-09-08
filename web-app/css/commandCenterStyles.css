@@ -1,0 +1,70 @@
+body {
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+header {
+    margin: 20px 0;
+}
+
+.clear {
+    clear: both;
+    float: none;
+}
+
+.title {
+    display: inline-block;
+}
+
+.subtitle {
+    display: inline-block;
+    color: #808080;
+    font-style: italic;
+}
+
+#ongoingMatches, #finishedMatches {
+    border: solid 2px black;
+    margin: 15px 0;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.matchItem{
+    padding: 10px 0;
+    border-bottom: solid 2px lightgray;
+}
+
+.matchItem:nth-child(1){
+    border-top: solid 1px lightgray;
+}
+
+.teambox {
+    display: inline-block;
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.teamboxLeft {
+    float: left;
+    border-right: double 1px lightgrey;
+}
+
+.teamboxRight {
+    float: right;
+}
+
+.teamname {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.scorebox {
+    text-align: center;
+}
+
+.btEndMatch {
+    display: block;
+    margin: 15px auto;
+}
