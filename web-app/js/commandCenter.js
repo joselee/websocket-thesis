@@ -22,21 +22,49 @@ $(window).load(function(){
                 template: _.template($("#matchViewTemplate").html()),
                 initialize: function(){
                     _.bindAll(this);
+                    this.render();
                 },
                 render: function(){
                     this.$el.html(this.template(this.model));
                     this.$el.attr("id", this.model.id);
+                    this.bindUpdateButtons();
+                    this.bindEndMatchButton();
+                    return this.$el;
+                },
+                bindUpdateButtons: function(){
+                    var self = this;
+                    $(".btDecreaseScore", this.$el).click(function(e){
+                        var foo;
+                    });
+                    $(".btIncreaseScore", this.$el).click(function(e){
+                        var bar;
+                    });
+                },
+                bindEndMatchButton: function(){
+                    var self = this;
                     $(".btEndMatch", this.$el).click(function(e){
-                        var parentMatchItem = $(e.currentTarget).parent();
-                        $("button", parentMatchItem).remove();
-                        parentMatchItem.hide().appendTo("#finishedMatches").fadeIn(300);
+                        var data = JSON.stringify({
+                            commandType: "endMatch",
+                            id: self.model.id,
+                            startTime: self.model.time,
+                            endTime: new Date().getTime()
+                        });
+                        subscription.push(data);
                     });
                 }
             });
 
             var matchView = new MatchView({model: message});
-            matchView.render();
-            matchView.$el.appendTo("#ongoingMatches").hide().fadeIn(300);
+            matchView.$el.hide().appendTo("#ongoingMatches").slideDown(500);
+        }
+        else if (message.commandType == "updateMatch"){
+
+        }
+        else {
+            var parentMatchItem = $("#" + message.id);
+            $("button", parentMatchItem).remove();
+            $(".endTime", parentMatchItem).html(moment(new Date()).format("D MMM YYYY, HH:mm:ss"));
+            parentMatchItem.hide().appendTo("#finishedMatches").slideDown(500);
         }
 
     };
@@ -48,7 +76,22 @@ $(window).load(function(){
     };
 
     $(".btCreateMatch").click(function(){
-        var data = JSON.stringify({commandType: "createMatch"});
+
+        function generateName(){
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for( var i=0; i < 7; i++ ){
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return text;
+        }
+
+        var data = JSON.stringify({
+            commandType: "createMatch",
+            startTime: new Date().getTime(),
+            team1: {name:generateName(), score:0},
+            team2: {name:generateName(), score:0}
+        });
         subscription.push(data);
     });
 });

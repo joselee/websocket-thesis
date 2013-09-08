@@ -1,23 +1,23 @@
 <script type="text/html" id="matchViewTemplate">
     <p>Match ID: {{id}}</p>
-    <p>Start time: {{moment(time).format("D MMM YYYY, HH:mm")}}</p>
-    <p>End time: --:--</p>
+    <p>Start time: <span class="startTime">{{moment(startTime).format("D MMM YYYY, HH:mm:ss")}}</span></p>
+    <p>End time: <span class="endTime">--:--</span></p>
     <div class="teambox teamboxLeft">
         <p class="teamname">Team FOO</p>
         <div class="scorebox">
             <span>Points:</span>
-            <button>-</button>
-            <span class="points">5</span>
-            <button>+</button>
+            <button class="btDecreaseScore">-</button>
+            <span class="points">0</span>
+            <button class="btIncreaseScore">+</button>
         </div>
     </div>
     <div class="teambox teamboxRight">
         <p class="teamname">Team BAR</p>
         <div class="scorebox">
             <span>Points:</span>
-            <button>-</button>
-            <span class="points">3</span>
-            <button>+</button>
+            <button class="btDecreaseScore">-</button>
+            <span class="points">0</span>
+            <button class="btIncreaseScore">+</button>
         </div>
     </div>
     <br class="clear" />

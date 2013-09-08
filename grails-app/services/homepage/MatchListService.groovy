@@ -43,7 +43,7 @@ class MatchListService {
                         response.writer.flush()
                 }
             } else if (!event.isResuming()) {
-                event.broadcaster().broadcast( createMessage('Someone has left', '') )
+                println("connection closing")
             }
         } catch (Exception e) {
             println "ERROR in onStateChange: $e"
@@ -57,17 +57,18 @@ class MatchListService {
         if(commandType == "createMatch"){
             commandResponse.commandType = data.commandType
             commandResponse.id = UUID.randomUUID().toString()
-            commandResponse.time = new Date().time
+            commandResponse.startTime = data.startTime
         }
         else if(commandType == "updateMatch"){
             commandResponse.commandType = data.commandType
             commandResponse.id = data.id
             commandResponse.time = new Date().time
         }
-        else(commandType == "endMatch"){
+        else{
                 commandResponse.commandType = data.commandType
                 commandResponse.id = data.id
-                commandResponse.time = new Date().time
+                commandResponse.startTime = data.startTime
+                commandResponse.endTime = data.endTime
         }
 
         return new JSON( commandResponse )
