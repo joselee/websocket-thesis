@@ -1,6 +1,6 @@
 package homepage
 
-class MatchEditorController {
+class CommandCenterController {
 
     def index() {
         render(view:"index")
