@@ -1,0 +1,75 @@
+package homepage
+
+import grails.converters.JSON
+import org.atmosphere.cpr.AtmosphereRequest
+import org.atmosphere.cpr.AtmosphereResource
+import org.atmosphere.cpr.AtmosphereResponse
+
+class MatchListService {
+
+    static transactional = false
+    static atmosphere = [mapping: '/atmosphere/matchList']
+
+    def onRequest = { event ->
+        try {
+            AtmosphereRequest request = event.request
+            if (request.method.equalsIgnoreCase("GET")) {
+                event.suspend()
+            } else if (request.method.equalsIgnoreCase("POST")) {
+                event.broadcaster.broadcast(request.reader.readLine().trim())
+            }
+        } catch (Exception e) {
+            println "ERROR!!!!!"
+        }
+
+    }
+
+    def onStateChange = { event ->
+        AtmosphereResource resource = event.resource
+        AtmosphereResponse response = resource.response
+
+        try {
+            if (event.isSuspended()) {
+                def command = JSON.parse(event.message)
+                def commandRespose = handleCommand(command)
+                response.writer.write(commandRespose)
+
+                switch (resource.transport()) {
+                    case AtmosphereResource.TRANSPORT.JSONP:
+                    case AtmosphereResource.TRANSPORT.LONG_POLLING:
+                        event.resource.resume()
+                        break
+                    default:
+                        response.writer.flush()
+                }
+            } else if (!event.isResuming()) {
+                event.broadcaster().broadcast( createMessage('Someone has left', '') )
+            }
+        } catch (Exception e) {
+            println "ERROR in onStateChange: $e"
+        }
+    }
+
+    private static String handleCommand(def data) {
+        String commandType = data.commandType
+        Map commandResponse = [:]
+
+        if(commandType == "createMatch"){
+            commandResponse.commandType = data.commandType
+            commandResponse.id = UUID.randomUUID().toString()
+            commandResponse.time = new Date().time
+        }
+        else if(commandType == "updateMatch"){
+            commandResponse.commandType = data.commandType
+            commandResponse.id = data.id
+            commandResponse.time = new Date().time
+        }
+        else(commandType == "endMatch"){
+                commandResponse.commandType = data.commandType
+                commandResponse.id = data.id
+                commandResponse.time = new Date().time
+        }
+
+        return new JSON( commandResponse )
+    }
+}
