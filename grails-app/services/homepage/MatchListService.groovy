@@ -52,19 +52,22 @@ class MatchListService {
 
     private static String handleCommand(def data) {
         String commandType = data.commandType
-        Map commandResponse = [:]
+        def commandResponse = [:]
 
         if(commandType == "createMatch"){
             commandResponse.commandType = data.commandType
             commandResponse.id = UUID.randomUUID().toString()
             commandResponse.startTime = data.startTime
+            commandResponse.teams = data.teams
+            commandResponse.teams.each{
+                it.teamId = UUID.randomUUID().toString()
+            }
         }
-        else if(commandType == "updateMatch"){
-            commandResponse.commandType = data.commandType
-            commandResponse.id = data.id
-            commandResponse.time = new Date().time
+        if(commandType == "updateMatch"){
+            println("updating score for team ( ${data.teamId} )")
+            commandResponse = data
         }
-        else{
+        if(commandType == "endMatch"){
                 commandResponse.commandType = data.commandType
                 commandResponse.id = data.id
                 commandResponse.startTime = data.startTime

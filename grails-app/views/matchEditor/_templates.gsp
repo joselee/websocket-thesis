@@ -1,25 +1,18 @@
-<script type="text/html" id="matchViewTemplate">
+<script type="text/template" id="matchViewTemplate">
     <p>Match ID: {{id}}</p>
     <p>Start time: <span class="startTime">{{moment(startTime).format("D MMM YYYY, HH:mm:ss")}}</span></p>
     <p>End time: <span class="endTime">--:--</span></p>
-    <div class="teambox teamboxLeft">
-        <p class="teamname">Team FOO</p>
-        <div class="scorebox">
-            <span>Points:</span>
-            <button class="btDecreaseScore">-</button>
-            <span class="points">0</span>
-            <button class="btIncreaseScore">+</button>
-        </div>
-    </div>
-    <div class="teambox teamboxRight">
-        <p class="teamname">Team BAR</p>
-        <div class="scorebox">
-            <span>Points:</span>
-            <button class="btDecreaseScore">-</button>
-            <span class="points">0</span>
-            <button class="btIncreaseScore">+</button>
-        </div>
-    </div>
-    <br class="clear" />
+    <div class="teamboxContainer"></div>
     <button class="btEndMatch">End Match</button>
+</script>
+
+
+<script type="text/template" id="teamboxTemplate">
+    <p class="teamname">{{name}}</p>
+    <div class="scorebox" id="{{teamId}}">
+        <span>Points:</span>
+        <button class="btDecreaseScore">-</button>
+        <span class="points">{{points}}</span>
+        <button class="btIncreaseScore">+</button>
+    </div>
 </script>
