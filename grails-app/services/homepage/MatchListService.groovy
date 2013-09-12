@@ -30,9 +30,8 @@ class MatchListService {
 
         try {
             if (event.isSuspended()) {
-                def command = JSON.parse(event.message)
-                def commandRespose = handleCommand(command)
-                response.writer.write(commandRespose)
+                // Just send whatever JSON we get to all clients
+                response.writer.write(event.message)
 
                 switch (resource.transport()) {
                     case AtmosphereResource.TRANSPORT.JSONP:
@@ -48,22 +47,5 @@ class MatchListService {
         } catch (Exception e) {
             println "ERROR in onStateChange: $e"
         }
-    }
-
-    private static String handleCommand(def data) {
-        String commandType = data.commandType
-
-        if(commandType == "createMatch"){
-            println("creating match ${data.matchId}")
-        }
-        if(commandType == "updateMatch"){
-            println("updating score for team ( ${data.teamId} )")
-
-        }
-        if(commandType == "endMatch"){
-            println("ending match ${data.matchId}")
-        }
-
-        return new JSON( data )
     }
 }

@@ -20,7 +20,7 @@ define(
                 var self = this;
                 this.socket = $.atmosphere;
                 this.request = {
-                    url: 'http://'+document.location.hostname+':'+document.location.port+'/atmosphere/chat',
+                    url: 'http://'+document.location.hostname+':'+document.location.port+'/atmosphere/matchList',
                     contentType : "application/json",
                     logLevel : 'debug',
                     transport : 'websocket' ,
@@ -39,10 +39,41 @@ define(
             },
             updateCollection: function(response){
                 var message  = $.parseJSON(response.responseBody);
+                switch(message.commandType){
+                    case "createMatch":
+                        this.createMatch(message);
+                        break;
+                    case "updateMatch":
+                        this.updateMatch(message);
+                        break;
+                    case "endMatch":
+                        this.endMatch(message);
+                        break;
+                }
+            },
+            createMatch: function(message){
+                var teamsCollection = new Backbone.Collection(message.teams);
                 var matchModel = new MatchModel({
-                    title: message.text
+                    matchId: message.matchId,
+                    teams: teamsCollection
                 });
                 this.add(matchModel);
+            },
+            updateMatch: function(message){
+                var matchModel = this.getMatchById(message.matchId);
+                var team = matchModel.get("teams").find(function(team){
+                    return team.get("teamId")===message.teamId});
+                team.set("points", message.points);
+                var foo;
+            },
+            endMatch: function(message){
+                var matchModel = this.getMatchById(message.matchId);
+                this.remove(matchModel);
+            },
+            getMatchById: function(matchId){
+                return this.find(function(model){
+                    return model.get("matchId") === matchId;
+                });
             }
         });
 

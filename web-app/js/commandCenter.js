@@ -61,6 +61,7 @@ $(window).load(function(){
 
                         var data = JSON.stringify({
                             commandType: "updateMatch",
+                            matchId: self.model.matchId,
                             teamId: team.teamId,
                             points: team.points
                         });
@@ -76,6 +77,7 @@ $(window).load(function(){
 
                         var data = JSON.stringify({
                             commandType: "updateMatch",
+                            matchId: self.model.matchId,
                             teamId: team.teamId,
                             points: team.points
                         });
