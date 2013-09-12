@@ -7,11 +7,12 @@ define(
     function MatchLayout(Marionette, matchLayoutTemplate, teamItemViewTemplate){
         var MatchLayout = Marionette.Layout.extend({
             tagName: 'div',
-            className: 'matchLayout',
+            className: 'match',
             template: matchLayoutTemplate,
             regions: {
                 teamsRegion:"#teamsRegion"
             },
+            events: {'click .subscribe': 'subscriptionHandler'},
             initialize: function(){
                 _.bindAll(this);
             },
@@ -32,7 +33,22 @@ define(
                     collection: teamCollection
                 });
 
-                this.teamsRegion.show(new TeamCollectionView);
+                if(this.teamsRegion){
+                    this.teamsRegion.show(new TeamCollectionView);
+                }
+            },
+            subscriptionHandler: function(e){
+                var subscribed = this.model.get("isSubscribed");
+
+                if(subscribed){
+                    this.model.set("isSubscribed", false);
+                    $(e.currentTarget).html("Subscribe to match");
+                }
+                else {
+                    this.model.set("isSubscribed", true);
+                    $(e.currentTarget).html("Unsubscribe");
+                }
+
             }
         });
 

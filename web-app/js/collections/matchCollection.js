@@ -1,11 +1,14 @@
 define(
     [
         "backbone",
+        "pnotify",
         "vent"
     ],
-    function MatchCollection(Backbone, Vent){
+    function MatchCollection(Backbone, pnotify, Vent){
 
-        var MatchModel = Backbone.Model.extend();
+        var MatchModel = Backbone.Model.extend({
+            defaults: { "isSubscribed":  false }
+        });
 
         var MatchCollection = Backbone.Collection.extend({
             model: MatchModel,
@@ -45,6 +48,7 @@ define(
                         break;
                     case "updateMatch":
                         this.updateMatch(message);
+                        this.notificationHandler(message);
                         break;
                     case "endMatch":
                         this.endMatch(message);
@@ -64,7 +68,19 @@ define(
                 var team = matchModel.get("teams").find(function(team){
                     return team.get("teamId")===message.teamId});
                 team.set("points", message.points);
-                var foo;
+            },
+            notificationHandler: function(message){
+                var matchModel = this.getMatchById(message.matchId);
+                if(matchModel.get("isSubscribed") && Backbone.history.fragment !== "matchList"){
+                    $.pnotify({
+                        title: "Oh some update happened..",
+                        text: false,
+                        history: false,
+                        icon: false,
+                        closer_hover: false,
+                        delay: 3000
+                    });
+                }
             },
             endMatch: function(message){
                 var matchModel = this.getMatchById(message.matchId);

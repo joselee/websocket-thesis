@@ -35,20 +35,7 @@ define(
                 };
                 this.request.onMessage = function (response) {
                     var message = $.parseJSON(response.responseBody);
-                    if(Backbone.history.fragment !== "chat"){
-                        $.pnotify({
-                            title: message.text,
-                            text: false,
-                            history: false,
-                            icon: false,
-                            closer_hover: false,
-                            delay: 3000
-                        });
-                    }
-                    else {
-                        self.appendMessage(message);
-                    }
-
+                    self.appendMessage(message);
                 };
                 this.request.onError = function(response) {
                     console.info("errored.");
@@ -82,7 +69,6 @@ define(
             }
         });
 
-        var chatView = new ChatView();
-        return chatView;
+        return new ChatView();
     }
 );
