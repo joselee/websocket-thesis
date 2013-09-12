@@ -13,6 +13,10 @@ define(
                 teamsRegion:"#teamsRegion"
             },
             events: {'click .subscribe': 'subscriptionHandler'},
+            templateHelpers: function(){
+                var subscription = this.model.get("isSubscribed") ? "Unsubscribe" : "Subscribe to match";
+                return {subscription:subscription};
+            },
             initialize: function(){
                 _.bindAll(this);
             },
