@@ -1,10 +1,9 @@
 define(
     [
         "backbone",
-        "pnotify",
-        "vent"
+        "pnotify"
     ],
-    function MatchCollection(Backbone, pnotify, Vent){
+    function MatchCollection(Backbone, pnotify){
 
         var MatchModel = Backbone.Model.extend({
             defaults: { "isSubscribed":  false }
@@ -12,17 +11,14 @@ define(
 
         var MatchCollection = Backbone.Collection.extend({
             model: MatchModel,
-            socket: null,
-            request: null,
-            subscription: null,
             initialize: function(){
                 _.bindAll(this);
-                this.connect();
+                this.atmosphereConnect();
             },
-            connect: function(){
+            atmosphereConnect: function(){
                 var self = this;
-                this.socket = $.atmosphere;
-                this.request = {
+                var socket = $.atmosphere;
+                var request = {
                     url: 'http://'+document.location.hostname+':'+document.location.port+'/atmosphere/matchList',
                     contentType : "application/json",
                     logLevel : 'debug',
@@ -30,18 +26,18 @@ define(
                     fallbackTransport: 'long-polling'
                 };
 
-                this.request.onOpen = function(){
+                request.onOpen = function(){
                     console.log("Match socket is open.");
                 };
 
-                this.request.onMessage = function(response){
-                    self.updateCollection(response);
+                request.onMessage = function(response){
+                    var message = $.parseJSON(response.responseBody);
+                    self.updateCollection(message);
                 };
 
-                this.subscription = this.socket.subscribe(this.request);
+                socket.subscribe(request);
             },
-            updateCollection: function(response){
-                var message  = $.parseJSON(response.responseBody);
+            updateCollection: function(message){
                 switch(message.commandType){
                     case "createMatch":
                         this.createMatch(message);
