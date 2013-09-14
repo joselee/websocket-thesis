@@ -1,6 +1,10 @@
 $(window).load(function(){
-    var socket = $.atmosphere;
+    _.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+    };
 
+    /* SOCKET SETUP & CONNECTION */
+    var socket = $.atmosphere;
     var request = {
         url: 'http://'+document.location.hostname+':'+document.location.port+'/atmosphere/matchList',
         contentType : "application/json",
@@ -8,14 +12,42 @@ $(window).load(function(){
         transport : 'websocket' ,
         fallbackTransport: 'long-polling'
     };
-
     request.onOpen = function(response) {
         console.info("Commander in the houuuuse!");
     };
-
     request.onMessage = function(response){
         var message  = $.parseJSON(response.responseBody);
+        messageHandler(message);
+    };
+    var subscription = socket.subscribe(request);
+    /* SOCKET SETUP & CONNECTION END */
 
+
+
+    /* HELPER FUNCTIONS */
+    function SendJSONData(data){
+        subscription.push(data);
+    }
+    function GenerateUUID(){
+        function S4() {
+            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        }
+        var uuid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+        return uuid;
+    }
+    function generateRandomString(){
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for( var i=0; i < 7; i++ ){
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+    }
+    /* HELPER FUNCTIONS END */
+
+
+    /* APPLICATION LOGIC */
+    function messageHandler(message){
         if(message.commandType === "createMatch"){
             var MatchView = Backbone.View.extend({
                 className: "matchItem",
@@ -65,7 +97,7 @@ $(window).load(function(){
                             teamId: team.teamId,
                             points: team.points
                         });
-                        subscription.push(data);
+                        SendJSONData(data);
                     });
                     $(".btIncreaseScore", this.$el).click(function(e){
                         var teamId = e.currentTarget.parentElement.id;
@@ -81,7 +113,7 @@ $(window).load(function(){
                             teamId: team.teamId,
                             points: team.points
                         });
-                        subscription.push(data);
+                        SendJSONData(data);
                     });
                 },
                 bindEndMatchButton: function(){
@@ -93,7 +125,7 @@ $(window).load(function(){
                             startTime: self.model.time,
                             endTime: new Date().getTime()
                         });
-                        subscription.push(data);
+                        SendJSONData(data);
                     });
                 }
             });
@@ -111,14 +143,7 @@ $(window).load(function(){
             $(".endTime", parentMatchItem).html(moment(new Date()).format("D MMM YYYY, HH:mm:ss"));
             parentMatchItem.hide().appendTo("#finishedMatches").slideDown(500);
         }
-
-    };
-
-    var subscription = socket.subscribe(request);
-
-    _.templateSettings = {
-        interpolate: /\{\{(.+?)\}\}/g
-    };
+    }
 
     $(".btNewMatch").click(function(){
         var NewMatchModal = Backbone.View.extend({
@@ -161,7 +186,7 @@ $(window).load(function(){
                     });
 
                     var data = JSON.stringify(matchObject);
-                    subscription.push(data);
+                    SendJSONData(data);
                     self.close();
                 });
                 $(".btCancel", this.$el).click(function(){
@@ -210,22 +235,5 @@ $(window).load(function(){
             });
         }
     });
+    /* APPLICATION LOGIC END */
 });
-
-
-function GenerateUUID(){
-    function S4() {
-        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    }
-    var uuid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-    return uuid;
-}
-
-function generateRandomString(){
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for( var i=0; i < 7; i++ ){
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-}
