@@ -11,6 +11,7 @@ define(
 
         var MatchCollection = Backbone.Collection.extend({
             model: MatchModel,
+            subscription: null,
             initialize: function(){
                 _.bindAll(this);
                 this.atmosphereConnect();
@@ -35,7 +36,7 @@ define(
                     self.updateCollection(message);
                 };
 
-                socket.subscribe(request);
+                this.subscription = socket.subscribe(request);
             },
             updateCollection: function(message){
                 switch(message.commandType){
