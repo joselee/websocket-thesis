@@ -22,6 +22,45 @@ header {
     font-style: italic;
 }
 
+.newMatchModal, .closeOverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.65);
+}
+
+.btCreateMatch {
+    width: 150px;
+}
+
+.btGenerateRandomNames{
+    color: #808080;
+    float: right;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.newMatchWindow {
+    width: 70%;
+    margin: 25% auto 0 auto;
+    background: white;
+    padding: 20px;
+}
+
+.teamList {
+    padding: 20px;
+}
+
+.additionalTeamItem {
+    padding: 5px 0;
+}
+
+.tbTeamName {
+    margin: 0 !important;
+}
+
 #ongoingMatches, #finishedMatches {
     border: solid 2px black;
     margin: 15px 0;

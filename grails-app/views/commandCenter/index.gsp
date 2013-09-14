@@ -18,7 +18,7 @@
 </header>
 
 <div class="mainContentRegion">
-    <button class="btCreateMatch">+ New match</button>
+    <button class="btNewMatch"><i class="icon-plus-sign"></i> New match</button>
 
     <div id="ongoingMatches">
         <h4>Ongoing matches</h4>
