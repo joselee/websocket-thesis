@@ -12,7 +12,7 @@ define(
         "views/article/articleListCollectionView",
         "views/article/articleCarouselView",
         "views/chat/chatView",
-        "views/match/matchListCollectionView",
+        "views/match/matchSectionLayout",
 		"vent"
     ],
     function MainLayout(
@@ -25,7 +25,7 @@ define(
         ArticleListCollectionView,
         ArticleCarouselView,
         chatView,
-        matchListCollectionView,
+        matchSectionLayout,
 		Vent
 		) {
 		"use strict";
@@ -65,7 +65,7 @@ define(
                 this.mainContentRegion.show(articleCarouselView);
             },
             showMatchList: function(){
-                this.mainContentRegion.show(matchListCollectionView);
+                this.mainContentRegion.show(matchSectionLayout);
             }
         });
 

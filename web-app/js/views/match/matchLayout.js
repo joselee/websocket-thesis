@@ -40,6 +40,8 @@ define(
                 if(this.teamsRegion){
                     this.teamsRegion.show(new TeamCollectionView);
                 }
+
+                this.$el.hide().slideDown(300);
             },
             subscriptionHandler: function(e){
                 var subscribed = this.model.get("isSubscribed");

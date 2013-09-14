@@ -1,12 +1,15 @@
 define(
     [
         "backbone",
+        "collections/finishedMatchCollection",
         "pnotify"
     ],
-    function MatchCollection(Backbone, pnotify){
+    function MatchCollection(Backbone, finishedMatchCollection, pnotify){
 
         var MatchModel = Backbone.Model.extend({
-            defaults: { "isSubscribed":  false }
+            defaults: {
+                "isSubscribed": false
+            }
         });
 
         var MatchCollection = Backbone.Collection.extend({
@@ -81,7 +84,11 @@ define(
             },
             endMatch: function(message){
                 var matchModel = this.getMatchById(message.matchId);
-                this.remove(matchModel);
+                if(matchModel){
+                    finishedMatchCollection.add(matchModel);
+                    this.remove(matchModel);
+                }
+
             },
             getMatchById: function(matchId){
                 return this.find(function(model){

@@ -198,6 +198,19 @@
 /* Article page styles end */
 
 /* Match List styles */
+.matchRegion {
+    border: solid 1px lightgrey;
+    min-height: 107px;
+}
+
+.finishedMatchListCollectionView {
+    min-height: 81px;
+}
+
+.finishedMatchListCollectionView .subscribe {
+    display: none;
+}
+
 .match {
     border-bottom: solid 1px lightgrey;
     box-sizing: border-box;
