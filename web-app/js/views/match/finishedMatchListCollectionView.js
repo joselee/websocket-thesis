@@ -9,12 +9,9 @@ define(
         var FinishedMatchListCollectionView = Marionette.CollectionView.extend({
             className: "finishedMatchListCollectionView",
             itemView: MatchLayout,
-            collection: finishedMatchListCollection,
-            initialize: function(){
-                this.collection.bind("all", this.render, this);
-            }
+            collection: finishedMatchListCollection
         });
 
-        return new FinishedMatchListCollectionView();
+        return FinishedMatchListCollectionView;
     }
 );

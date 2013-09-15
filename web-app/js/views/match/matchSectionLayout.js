@@ -5,7 +5,7 @@ define(
         "views/match/matchListCollectionView",
         "views/match/finishedMatchListCollectionView"
     ],
-    function MatchSectionLayout(Marionette, matchSectionLayoutTemplate, matchListCollectionView, finishedMatchListCollectionView){
+    function MatchSectionLayout(Marionette, matchSectionLayoutTemplate, MatchListCollectionView, FinishedMatchListCollectionView){
         var MatchSectionLayout = Marionette.Layout.extend({
             tagName: 'div',
             className: 'matchSection',
@@ -18,8 +18,8 @@ define(
                 _.bindAll(this);
             },
             onShow: function(){
-                this.ongoingRegion.show(matchListCollectionView);
-                this.finishedRegion.show(finishedMatchListCollectionView);
+                this.ongoingRegion.show(new MatchListCollectionView);
+                this.finishedRegion.show(new FinishedMatchListCollectionView);
             }
         });
 
