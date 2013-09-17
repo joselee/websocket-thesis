@@ -5,11 +5,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
 
+        <script>
+            window.ThesisProject = window.ThesisProject || {};
+            window.ThesisProject.deviceModel = "${request.device?.deviceObject?.device?.name}";
+            window.ThesisProject.deviceOS = "${request.device?.deviceProperties?.device?.os}";
+            window.ThesisProject.browserVendor = "${request.device?.deviceProperties?.webbrowser?.vendor}";
+            window.ThesisProject.browser = "${request.device?.deviceProperties?.webbrowser?.model}";
+        </script>
         <g:if test="${request.device.isSamsung()}">
-            <script>var samsungDevice = true;</script>
+            <script>window.ThesisProject.samsungDevice = true;</script>
         </g:if>
         <g:else>
-            <script>var samsungDevice = false;</script>
+            <script>window.ThesisProject.samsungDevice = false;</script>
         </g:else>
 
         <!-- Styles -->

@@ -6,7 +6,15 @@ define(
     function HomeView(Marionette, HomeViewTemplate){
         var HomeView = Marionette.ItemView.extend({
             className: "homeView",
-            template: HomeViewTemplate
+            template: HomeViewTemplate,
+            templateHelpers: function(){
+                return {
+                    deviceModel: window.ThesisProject.deviceModel,
+                    deviceOS: window.ThesisProject.deviceOS,
+                    browserVendor: window.ThesisProject.browserVendor,
+                    browser: window.ThesisProject.browser
+                }
+            }
         });
 
         return HomeView;

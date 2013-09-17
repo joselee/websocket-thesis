@@ -61,3 +61,5 @@ requirejs.config({
     },
     deps: ["backbone.marionette.handlebars", "juissi", "atmosphere", "moment"]
 });
+
+window.ThesisProject = window.ThesisProject || {};

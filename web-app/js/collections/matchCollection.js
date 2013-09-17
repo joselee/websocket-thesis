@@ -22,8 +22,7 @@ define(
             atmosphereConnect: function(){
                 var self = this;
                 var socket = $.atmosphere;
-
-                var defaultTransport = samsungDevice ? 'long-polling' : 'websocket';
+                var defaultTransport = window.ThesisProject.samsungDevice ? 'long-polling' : 'websocket';
 
                 var request = {
                     url: 'http://'+document.location.hostname+':'+document.location.port+'/atmosphere/matchList',
@@ -33,8 +32,9 @@ define(
                     fallbackTransport: 'long-polling'
                 };
 
-                request.onOpen = function(){
+                request.onOpen = function(response){
                     console.log("Match socket is open.");
+                    window.ThesisProject.transport = response.transport;
                 };
 
                 request.onMessage = function(response){
