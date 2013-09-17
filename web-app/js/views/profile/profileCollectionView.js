@@ -12,24 +12,36 @@ define(
             itemView: ProfileItemView,
             collection: personsCollection,
             initialize: function(){
-                this.collection.on("sync", this.enablePagination, this);
+                _.bindAll(this);
             },
             onShow: function(){
-                this.enablePagination();
+                this.scrollToProfile(this.options.profileId);
             },
-            enablePagination: function(){
-                this.$el.page();
-                this.pagination = this.$el.data("page");
-                this.pagination.onpagechange = this.updateURL;
-                this.scrollToArticle(this.options.articleId);
+            appendHtml: function(collectionView, itemView, index){
+                if (collectionView.el.pagination === undefined){ // If at least on element and juissi has to be defined
+                    collectionView.el.pagination = new juissi.Explore(collectionView.el,{
+                        horizontalMode : true,
+                        loopHorizontal : true
+                    });
+                    this.pagination = collectionView.el.pagination;
+                    this.pagination.triggers.onPageChange = this.onPageChange;
+                }
+
+                if ( !this.pagination.elementExists(index, 0) ){
+                    this.pagination.setElement({x: index, y : 0}, itemView.el);
+
+                } else {
+                    this.pagination.updateElement({x: index, y : 0}, itemView.el);
+                }
+                this.pagination.alignElements(); // Align elements after all
             },
-            updateURL: function(){
-                var currentModel = personsCollection.at(this.currentPage);
+            onPageChange: function(){
+                var currentModel = personsCollection.at(this.pagination.getCurrentCoords().x);
                 Router.navigate("#profile/" + currentModel.get("id"));
             },
-            scrollToArticle: function(profileId){
+            scrollToProfile: function(profileId){
                 var index = personsCollection.getPersonIndex(profileId);
-                this.pagination.scrollToPage(index, {instant: true});
+                this.pagination.scroll(index, 0);
             }
         });
 
