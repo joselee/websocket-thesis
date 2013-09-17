@@ -12,7 +12,7 @@ requirejs.config({
 		json2                           : "libs/json2",
 		i18nprecompile                  : "libs/i18nprecompile",
 		"backbone.marionette.handlebars": "libs/backbone.marionette.handlebars",
-		"juissi"						: "libs/juissi.swipe",
+		"juissi"						: "libs/juissi.swipe.min",
 		"vent"							: "vent",
         "atmosphere"                    : "libs/jquery.atmosphere",
         "moment"                        : "libs/moment.min",
