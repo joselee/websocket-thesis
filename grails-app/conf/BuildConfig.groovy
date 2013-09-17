@@ -20,6 +20,8 @@ grails.project.dependency.resolution = {
 
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
+        mavenRepo "http://conmio.artifactoryonline.com/conmio/plugins-releases-local"
+        mavenRepo "http://conmio.artifactoryonline.com/conmio/plugins-snapshots-local"
         grailsPlugins()
         grailsHome()
         grailsCentral()
@@ -41,6 +43,11 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.8.3"
         runtime ":resources:1.1.6"
         runtime ":database-migration:1.2.1"
+
+        runtime ":dynagate-http:3.1.2"
+        runtime ":dynagate-cache:2.7.5"
+        runtime ":device-gate:2.9.15"
+
         runtime (":atmosphere:0.4.2.3"){
 		exclude 'atmosphere-runtime'
 	}

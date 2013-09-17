@@ -5,6 +5,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
 
+        <g:if test="${request.device.isSamsung()}">
+            <script>var samsungDevice = true;</script>
+        </g:if>
+        <g:else>
+            <script>var samsungDevice = false;</script>
+        </g:else>
+
         <!-- Styles -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">

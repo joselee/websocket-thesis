@@ -22,11 +22,14 @@ define(
             atmosphereConnect: function(){
                 var self = this;
                 var socket = $.atmosphere;
+
+                var defaultTransport = samsungDevice ? 'long-polling' : 'websocket';
+
                 var request = {
                     url: 'http://'+document.location.hostname+':'+document.location.port+'/atmosphere/matchList',
                     contentType : "application/json",
                     logLevel : 'debug',
-                    transport : 'websocket' ,
+                    transport : defaultTransport,
                     fallbackTransport: 'long-polling'
                 };
 
