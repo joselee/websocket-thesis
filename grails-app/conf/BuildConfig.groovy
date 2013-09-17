@@ -31,9 +31,8 @@ grails.project.dependency.resolution = {
 
     dependencies {
         compile ("org.atmosphere:atmosphere-runtime:1.1.0.beta3"){
-		excludes 'slf4j-api', 'atmosphere-ping'
-	}
-        runtime 'mysql:mysql-connector-java:5.1.22'
+		    excludes 'slf4j-api', 'atmosphere-ping'
+	    }
     }
 
     plugins {

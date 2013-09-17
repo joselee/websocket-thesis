@@ -9,10 +9,10 @@ define(
             template: HomeViewTemplate,
             templateHelpers: function(){
                 return {
-                    deviceModel: window.ThesisProject.deviceModel,
-                    deviceOS: window.ThesisProject.deviceOS,
+                    deviceModel:   window.ThesisProject.deviceModel,
+                    deviceOS:      window.ThesisProject.deviceOS,
                     browserVendor: window.ThesisProject.browserVendor,
-                    browser: window.ThesisProject.browser
+                    browser:       window.ThesisProject.browser
                 }
             }
         });
