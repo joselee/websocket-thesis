@@ -41,7 +41,7 @@ define(
             },
             scrollToProfile: function(profileId){
                 var index = personsCollection.getPersonIndex(profileId);
-                this.pagination.scroll(index, 0);
+                this.pagination.scroll(index, 0, {instant:true});
             }
         });
 
